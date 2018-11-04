@@ -10,6 +10,6 @@
 - UI:       iView
 
 运行代码：
-```
+```shell
 mvn spring-boot:run
 ```
