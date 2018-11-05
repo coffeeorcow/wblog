@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,7 +31,8 @@ public class User {
     @Column(unique=true)
     private String userName;	// 用户名
     private String email;		// 邮箱
-    private String passward;	// 密码
+    @JsonIgnore
+    private String password;	// 密码
     private String avatar;		// 头像的url地址
     private Integer gender = 0; // 0未知，1男，2女
     @CreatedDate

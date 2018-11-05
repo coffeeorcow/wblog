@@ -25,4 +25,9 @@ public class UserController {
 	public List<User> findAllUsers() {
 		return userService.findAll();
 	}
+	
+	@GetMapping("/name")
+	public User findByName(String userName) {
+		return userService.findUserByUserName(userName);
+	}
 }
