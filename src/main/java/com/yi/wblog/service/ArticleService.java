@@ -11,12 +11,20 @@ import com.yi.wblog.entity.Category;
 import com.yi.wblog.entity.User;
 import com.yi.wblog.pojo.RespBody;
 import com.yi.wblog.repository.ArticleRepository;
+import com.yi.wblog.repository.CategoryRepository;
+import com.yi.wblog.repository.UserRepository;
 
 @Service
 public class ArticleService {
 	
 	@Autowired
 	ArticleRepository articleRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	CategoryRepository cateRepository;
 	
 	@Autowired
 	UserService userService;
@@ -44,6 +52,8 @@ public class ArticleService {
 			return new RespBody("error", "分类不能为空");
 		else if (cateService.ifExist(cate.getId()))
 			return new RespBody("error", "分类不存在");
+		article.setUser(userRepository.findById(user.getId()));
+		article.setCate(cateRepository.findById(cate.getId()));
 		articleRepository.save(article);
 		return new RespBody("success", "文章添加成功");
 	}
