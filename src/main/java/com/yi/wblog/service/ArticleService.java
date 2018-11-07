@@ -14,6 +14,9 @@ import com.yi.wblog.repository.ArticleRepository;
 import com.yi.wblog.repository.CategoryRepository;
 import com.yi.wblog.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ArticleService {
 	
@@ -45,15 +48,13 @@ public class ArticleService {
 		User user = article.getUser();
 		if (user == null)
 			return new RespBody("error", "用户不能为空");
-		else if (userService.ifExist(user.getId()))
+		else if (!userService.ifExist(user.getId()))
 			return new RespBody("error", "用户不存在");	
 		Category cate = article.getCate();
 		if (cate == null)
 			return new RespBody("error", "分类不能为空");
-		else if (cateService.ifExist(cate.getId()))
+		else if (!cateService.ifExist(cate.getId()))
 			return new RespBody("error", "分类不存在");
-		article.setUser(userRepository.findById(user.getId()));
-		article.setCate(cateRepository.findById(cate.getId()));
 		articleRepository.save(article);
 		return new RespBody("success", "文章添加成功");
 	}

@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +25,7 @@ public class Tag {
 	@Column(unique=true)
 	private String tagName;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="tags", fetch=FetchType.LAZY)
 	private List<Article> articles;
 	

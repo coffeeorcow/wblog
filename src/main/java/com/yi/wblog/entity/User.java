@@ -39,9 +39,11 @@ public class User {
     private Date registyTime;	// 注册时间
     private Date loginTime;		// 最近登录时间
     
+    @JsonIgnore
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Article> articles;
     
+    @JsonIgnore
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Comment> comments;
     

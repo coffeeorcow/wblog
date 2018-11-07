@@ -2,7 +2,6 @@ package com.yi.wblog.entity;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,11 +18,13 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Article {
@@ -38,17 +39,22 @@ public class Article {
 	@LastModifiedDate
 	private Date modifiedTime;
 	
+	@JsonIgnore
 	@JoinColumn(name="userId")
 	@ManyToOne
 	private User user;
 	
+	@JsonIgnore
 	@JoinColumn(name="cateId")
 	@ManyToOne
 	private Category cate;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="article", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<Comment> comments;
 	
+	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY)
 	private List<Tag> tags;
+	
 }

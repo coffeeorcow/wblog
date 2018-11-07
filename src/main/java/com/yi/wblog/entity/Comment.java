@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,10 +30,12 @@ public class Comment {
 	@CreatedDate
 	private Date createdTime;
 	
+	@JsonIgnore
 	@JoinColumn(name="userId")
 	@ManyToOne
 	private User user;
 	
+	@JsonIgnore
 	@JoinColumn(name="articleId")
 	@ManyToOne
 	private Article article;
