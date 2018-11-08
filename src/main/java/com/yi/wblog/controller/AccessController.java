@@ -1,12 +1,14 @@
 package com.yi.wblog.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,25 +16,19 @@ import com.yi.wblog.entity.User;
 import com.yi.wblog.pojo.RespBody;
 import com.yi.wblog.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 访问控制
  * @author wjy
  *	用户登录、注册、注销
  */
+@Slf4j
 @RestController
 public class AccessController{
 	
 	@Autowired
 	UserService userService;
-	
-	/**
-	 * 用于测试的 get 请求
-	 * @return hello
-	 */
-	@GetMapping("/hello")
-	public String hello() {
-		return "hello!";
-	}
 	
 	/**
 	 * 用户登录
@@ -42,8 +38,12 @@ public class AccessController{
 	 * @return 成败信息
 	 */
 	@PostMapping("/login")
-	public RespBody login(@RequestParam("userName") String userName,
-			@RequestParam("password") String password, HttpSession session) {
+	public RespBody login(@RequestBody Map<String, String> map, HttpSession session) {
+		// @RequestParam("userName") String userName,
+		// @RequestParam("password") String password
+		String userName = map.get("userName");
+		String password = map.get("password");
+		log.info("login info: " + userName + "/" + password);
 		RespBody resp = userService.login(userName, password);
 		if (resp.getCode().equals("success")) {
 			User user = userService.findUserByUserName(userName);
@@ -72,6 +72,21 @@ public class AccessController{
 	@PostMapping("/registry")
 	public RespBody registry(User user) {
 		return userService.registry(user);
+	}
+	
+	/**
+	 * 用于测试的 get 请求
+	 * @return hello
+	 */
+	@GetMapping("/hello")
+	public String getHello() {
+		return "hello!";
+	}
+	
+	@PostMapping("/hello")
+	public String postHello(String msg) {
+		log.info("msg is: " + msg);
+		return "hello!";
 	}
 
 }

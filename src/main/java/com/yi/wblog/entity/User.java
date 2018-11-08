@@ -17,11 +17,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 public class User {
@@ -46,5 +48,11 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private List<Comment> comments;
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", email=" + email + ", password=" + password + ", avatar="
+				+ avatar + ", gender=" + gender + ", registyTime=" + registyTime + ", loginTime=" + loginTime + "]";
+	}
     
 }

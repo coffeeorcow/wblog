@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yi.wblog.entity.User;
 import com.yi.wblog.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -28,6 +31,8 @@ public class UserController {
 	
 	@GetMapping("/name")
 	public User findByName(String userName) {
-		return userService.findUserByUserName(userName);
+		User user = userService.findUserByUserName(userName);
+		log.info(user.toString());
+		return user;
 	}
 }

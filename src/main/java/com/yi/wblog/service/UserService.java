@@ -69,7 +69,6 @@ public class UserService {
 	 * @return 用户信息列表
 	 */
 	public List<User> findAll() {
-		log.info(userRepository.findAll().toString());
 		return userRepository.findAll();
 	}
 	
