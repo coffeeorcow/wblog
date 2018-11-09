@@ -78,7 +78,9 @@ public class UserService {
 	 * @return 用户信息
 	 */
 	public User findUserByUserName(String userName) {
-		return userRepository.findUserByUserName(userName);
+		User user = userRepository.findUserByUserName(userName);
+//		log.info(user.toString());
+		return user;
 	}
 	
 	/**

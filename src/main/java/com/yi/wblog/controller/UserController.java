@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,9 +31,9 @@ public class UserController {
 	}
 	
 	@GetMapping("/name")
-	public User findByName(String userName) {
+	public User findByName(@RequestBody String userName) {
 		User user = userService.findUserByUserName(userName);
-		log.info(user.toString());
+		log.info("userName: " + userName);
 		return user;
 	}
 }
