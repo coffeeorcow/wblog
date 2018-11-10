@@ -70,7 +70,8 @@ public class AccessController{
 	 * @return 成败信息
 	 */
 	@PostMapping("/registry")
-	public RespBody registry(User user) {
+	public RespBody registry(@RequestBody User user) {
+		log.info(user.toString());
 		return userService.registry(user);
 	}
 	

@@ -37,7 +37,7 @@ public class UserService {
 			return new RespBody("error", "用户名或密码不能为空");
 		User u = userRepository.findUserByUserName(userName);
 		if (u == null)
-			return new RespBody("error", "用户不存在");
+			return new RespBody("error", "账户名或密码错误");
 		if (!password.equals(u.getPassword()))
 			return new RespBody("error", "账户名或密码错误");
 		u.setLoginTime(new Date());
@@ -78,8 +78,10 @@ public class UserService {
 	 * @return 用户信息
 	 */
 	public User findUserByUserName(String userName) {
+		log.info("userName in findUserByUserName:" + userName);
 		User user = userRepository.findUserByUserName(userName);
-//		log.info(user.toString());
+		if (user != null)
+			log.info(user.toString());
 		return user;
 	}
 	
