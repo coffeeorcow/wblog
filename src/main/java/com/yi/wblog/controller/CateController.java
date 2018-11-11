@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class CateController {
 	 * @return 成败信息
 	 */
 	@PostMapping("/add")
-	public RespBody addCate(Category cate) {
+	public RespBody addCate(@RequestBody Category cate) {
 		return cateService.addCate(cate);
 	}
 	
