@@ -1,6 +1,7 @@
 package com.yi.wblog.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,37 @@ public class CateService {
 	 */
 	public List<Category> getAllCate() {
 		return cateRepository.findAll();
+	}
+	
+	/**
+	 * 根据分类名模糊查找分类
+	 * @param cateName 分类名称
+	 * @return 分类信息列表
+	 */
+	public List<Category> findByCateNameLike(String cateName) {
+		return cateRepository.findByCateNameLike(cateName);
+	}
+	
+	/**
+	 * 根据分类名查找分类
+	 * @param cateName 分类名称
+	 * @return 分类信息列表
+	 */
+	public Category findByName(String cateName) {
+		return cateRepository.findByCateName(cateName);
+	}
+	
+	/**
+	 * 更改分类名称
+	 * @param id
+	 * @return
+	 */
+	public RespBody changeCateName(Long id, String cateName) {
+		Category cate = cateRepository.findById(id).get();
+		if (cate == null)
+			return new RespBody("error", "分类不存在");
+		cate.setCateName(cateName);
+		cateRepository.save(cate);
+		return new RespBody("success", "分类名称修改成功");
 	}
 }

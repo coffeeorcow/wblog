@@ -38,4 +38,19 @@ public class CateController {
 	public List<Category> getAllCate() {
 		return cateService.getAllCate();
 	}
+	
+	/**
+	 * 模糊查找分类
+	 * @param cateName 分类名
+	 * @return 分类信息
+	 */
+	@GetMapping("/like")
+	public List<Category> findByCateNameLike(String cateName) {
+		return cateService.findByCateNameLike(cateName + "%");
+	}
+	
+	@GetMapping("/change")
+	public RespBody changeCateName(String cateName) {
+		
+	}
 }
