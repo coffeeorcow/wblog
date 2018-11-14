@@ -48,9 +48,10 @@ public class CateController {
 	public List<Category> findByCateNameLike(String cateName) {
 		return cateService.findByCateNameLike(cateName + "%");
 	}
-	
+
 	@GetMapping("/change")
-	public RespBody changeCateName(String cateName) {
-		
+	public RespBody changeCateName(Long id, String cateName) {
+		// TODO 待测试
+		return cateService.changeCateName(id, cateName);
 	}
 }

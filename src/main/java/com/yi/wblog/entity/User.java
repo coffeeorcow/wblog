@@ -2,6 +2,7 @@ package com.yi.wblog.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,11 +44,11 @@ public class User {
     
     @JsonIgnore
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private List<Article> articles;
+    private Set<Article> articles;
     
     @JsonIgnore
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private List<Comment> comments;
+    private Set<Comment> comments;
 
 	@Override
 	public String toString() {

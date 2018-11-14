@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -18,8 +20,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
 @NoArgsConstructor
+@Getter
+@Setter
 @EntityListeners(AuditingEntityListener.class)
 public class Comment {
 
@@ -39,4 +42,13 @@ public class Comment {
 	@JoinColumn(name="articleId")
 	@ManyToOne
 	private Article article;
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", createdTime=" + createdTime +
+                '}';
+    }
 }

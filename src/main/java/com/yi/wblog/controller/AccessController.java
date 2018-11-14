@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.yi.wblog.entity.Article;
+import com.yi.wblog.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,11 +31,10 @@ public class AccessController{
 	
 	@Autowired
 	UserService userService;
-	
+
 	/**
 	 * 用户登录
-	 * @param userName 用户名
-	 * @param password 密码
+     * @param map 用户登录信息
 	 * @param session null
 	 * @return 成败信息
 	 */
@@ -84,6 +85,9 @@ public class AccessController{
 		return "hello!";
 	}
 	
+	/**
+	 * 用于测试的 post 请求
+	 */
 	@PostMapping("/hello")
 	public String postHello(String msg) {
 		log.info("msg is: " + msg);
