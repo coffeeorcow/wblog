@@ -1,15 +1,15 @@
 package com.yi.wblog.controller;
 
-import java.util.List;
-
+import com.yi.wblog.entity.Article;
 import com.yi.wblog.entity.User;
+import com.yi.wblog.pojo.RespBody;
+import com.yi.wblog.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.yi.wblog.entity.Article;
-import com.yi.wblog.pojo.RespBody;
-import com.yi.wblog.service.ArticleService;
+import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RestController
@@ -18,6 +18,12 @@ public class ArticleController {
 
     @Autowired
     ArticleService articleService;
+
+    @GetMapping("")
+    public Set<Article> queryArticles(String query) {
+        log.info("query is " + query);
+        return articleService.queryArticles(query);
+    }
 
     /**
      * 添加文章

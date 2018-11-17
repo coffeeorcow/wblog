@@ -1,5 +1,6 @@
 package com.yi.wblog.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -94,5 +95,25 @@ public class ArticleService {
 	 */
 	public List<Article> getAll() {
 		return articleRepository.findAll();
+	}
+
+	/**
+	 * 根据查询条件查询文章
+	 * @return
+	 */
+	public Set<Article> queryArticles(String query) {
+		Set<Article> articles = new HashSet<>();
+		List<Article> at1 = articleRepository.findByTitleLikeIgnoreCase("%" + query + "%");
+		List<Tag> tags = tagRepository.findByTagNameLikeIgnoreCase("%" + query + "%");
+		for (Article at : at1) {
+			articles.add(at);
+		}
+		for (Tag tag : tags) {
+			Set<Article> at2 = tag.getArticles();
+			if (at2.size() == 0) {
+				articles.addAll(at2);
+			}
+		}
+		return articles;
 	}
 }

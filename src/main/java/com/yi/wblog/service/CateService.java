@@ -63,7 +63,7 @@ public class CateService {
 	 * @return 分类信息列表
 	 */
 	public List<Category> findByCateNameLike(String cateName) {
-		return cateRepository.findByCateNameLike(cateName);
+		return cateRepository.findByCateNameLikeIgnoreCase(cateName);
 	}
 	
 	/**
