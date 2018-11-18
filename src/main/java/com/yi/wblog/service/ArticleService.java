@@ -2,6 +2,7 @@ package com.yi.wblog.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import com.yi.wblog.entity.Tag;
@@ -24,27 +25,28 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class ArticleService {
-	
+
 	@Autowired
 	ArticleRepository articleRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	CategoryRepository cateRepository;
 
 	@Autowired
-    TagRepository tagRepository;
+	TagRepository tagRepository;
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	CateService cateService;
-	
+
 	/**
 	 * 添加文章
+	 *
 	 * @param article 文章对象
 	 * @return 添加成败信息
 	 */
@@ -71,26 +73,27 @@ public class ArticleService {
 
 		// 标签处理
 		Set<Tag> tags = article.getTags();
-        if (tags != null) {
-            if (tags.size() > 0) {
-                Tag t;
-                for (Tag tag : tags) {
-                    t = tagRepository.findByTagName(tag.getTagName());
-                    if (t != null) {
-                        tag.setId(t.getId());
-                    } else {
-                        tagRepository.save(tag);
-                    }
-                }
-            }
-        }
+		if (tags != null) {
+			if (tags.size() > 0) {
+				Tag t;
+				for (Tag tag : tags) {
+					t = tagRepository.findByTagName(tag.getTagName());
+					if (t != null) {
+						tag.setId(t.getId());
+					} else {
+						tagRepository.save(tag);
+					}
+				}
+			}
+		}
 
 		articleRepository.save(article);
 		return new RespBody("success", "文章添加成功");
 	}
-	
+
 	/**
 	 * 获取所有文章
+	 *
 	 * @return
 	 */
 	public List<Article> getAll() {
@@ -99,6 +102,7 @@ public class ArticleService {
 
 	/**
 	 * 根据查询条件查询文章
+	 *
 	 * @return
 	 */
 	public Set<Article> queryArticles(String query) {
@@ -115,5 +119,15 @@ public class ArticleService {
 			}
 		}
 		return articles;
+	}
+
+	/**
+	 * 根据文章 id 查询文章信息
+	 *
+	 * @param id
+	 * @return
+	 */
+	public Article findByID(Long id) {
+		return articleRepository.findById(id).get();
 	}
 }

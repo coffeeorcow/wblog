@@ -52,4 +52,9 @@ public class ArticleController {
     public List<Article> getAll() {
         return articleService.getAll();
     }
+
+    @GetMapping("/get")
+    public Article findById(Long id) {
+        return articleService.findByID(id);
+    }
 }
