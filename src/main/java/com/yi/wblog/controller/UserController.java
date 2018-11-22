@@ -1,13 +1,11 @@
 package com.yi.wblog.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import com.yi.wblog.pojo.RespBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.yi.wblog.entity.User;
 import com.yi.wblog.service.UserService;
@@ -42,5 +40,20 @@ public class UserController {
 		log.info("userName: " + userName);
 		log.info("user:" + user);
 		return user;
+	}
+
+	@PostMapping("/update")
+	public RespBody update(@RequestBody User user) {
+		log.info("user is " + user.toString());
+		return userService.update(user);
+	}
+
+	@PostMapping("/pwd")
+	public RespBody udpatePwd(@RequestBody Map<String, String> map) {
+		String idStr = map.get("id");
+		String newpwd = map.get("newpwd");
+		String oldpwd = map.get("oldpwd");
+		Long id = Long.parseLong(idStr);
+		return userService.updatePwd(id, oldpwd, newpwd);
 	}
 }

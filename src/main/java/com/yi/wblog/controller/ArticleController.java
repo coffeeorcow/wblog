@@ -57,4 +57,15 @@ public class ArticleController {
     public Article findById(Long id) {
         return articleService.findByID(id);
     }
+
+    @GetMapping("/user")
+    public Set<Article> findByUserId(Long id) {
+        return articleService.findByUserId(id);
+    }
+
+    @PostMapping("/update")
+    public RespBody update(@RequestBody Article article) {
+        log.info(article.toString());
+        return articleService.update(article);
+    }
 }

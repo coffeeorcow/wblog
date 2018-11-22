@@ -2,6 +2,7 @@ package com.yi.wblog.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,5 +95,47 @@ public class UserService {
 		if (userRepository.findById(id) == null)
 			return false;
 		return true;
+	}
+
+	/**
+	 * 更新用户信息
+	 * @param user  用户信息
+	 * @return      成败信息
+	 */
+	public RespBody update(User user) {
+		if (user == null)
+			return new RespBody("error", "用户不存在");
+		Optional<User> u = userRepository.findById(user.getId());
+		if (u.get() == null)
+			return new RespBody("error", "用户不存在");
+		User user1 = u.get();
+		user1.setUserName(user.getUserName());
+		user1.setEmail(user.getEmail());
+		user1.setGender(user.getGender());
+		user1.setAvatar(user.getAvatar());
+		log.info("user1 is " + user1.toString());
+		userRepository.save(user1);
+		return new RespBody("success", "用户信息修改成功");
+	}
+
+	/**
+	 *  修改用户密码
+	 * @param id        用户id
+	 * @param oldpwd    旧密码
+	 * @param newpwd    新密码
+	 * @return          成败信息
+	 */
+	public RespBody updatePwd(Long id, String oldpwd, String newpwd) {
+		Optional<User> userOpt = userRepository.findById(id);
+		User user = userOpt.get();
+		if (user == null)
+			return new RespBody("error", "用户不存在");
+		if (!oldpwd.equals(user.getPassword()))
+			return new RespBody("error", "密码错误");
+		if (StringUtils.isEmpty(newpwd))
+			return new RespBody("error", "新密码不能为空");
+		user.setPassword(newpwd);
+		userRepository.save(user);
+		return new RespBody("success", "密码修改成功");
 	}
 }

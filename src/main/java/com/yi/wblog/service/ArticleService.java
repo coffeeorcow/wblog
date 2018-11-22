@@ -130,4 +130,31 @@ public class ArticleService {
 	public Article findByID(Long id) {
 		return articleRepository.findById(id).get();
 	}
+
+	public Set<Article> findByUserId(Long id) {
+		Optional<User> userOpt = userRepository.findById(id);
+		User user = userOpt.get();
+		Set<Article> articles = new HashSet<>();
+		if (user != null) {
+			articles = user.getArticles();
+		}
+		return articles;
+	}
+
+	/**
+	 * 修改文章信息
+	 * @param article 文章信息
+	 * @return 成败信息
+	 */
+	public RespBody update(Article article) {
+		if (article == null)
+			return new RespBody("error", "文章不存在");
+		Optional<Article> artOpt = articleRepository.findById(article.getId());
+		Article art = artOpt.get();
+		if (art == null)
+			return new RespBody("error", "文章不存在");
+		art.setContent(article.getContent());
+		articleRepository.save(art);
+		return new RespBody("success", "文章修改成功");
+	}
 }
