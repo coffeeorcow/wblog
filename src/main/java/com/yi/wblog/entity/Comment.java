@@ -32,23 +32,25 @@ public class Comment {
 	private String content;
 	@CreatedDate
 	private Date createdTime;
-	
+
 	@JsonIgnore
 	@JoinColumn(name="userId")
 	@ManyToOne
 	private User user;
-	
+
 	@JsonIgnore
 	@JoinColumn(name="articleId")
 	@ManyToOne
 	private Article article;
 
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", content='" + content + '\'' +
-                ", createdTime=" + createdTime +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Comment{" +
+				"id=" + id +
+				", content='" + content + '\'' +
+				", createdTime=" + createdTime +
+				", user=" + user +
+				", article=" + article +
+				'}';
+	}
 }
