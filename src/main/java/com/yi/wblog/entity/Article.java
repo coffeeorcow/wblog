@@ -51,6 +51,7 @@ public class Article {
     @ManyToOne
     private Category cate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
@@ -67,7 +68,6 @@ public class Article {
                 ", modifiedTime=" + modifiedTime +
                 ", user=" + user +
                 ", cate=" + cate +
-                ", comments=" + comments +
                 ", tags=" + tags +
                 '}';
     }

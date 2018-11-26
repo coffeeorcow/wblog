@@ -33,12 +33,10 @@ public class Comment {
 	@CreatedDate
 	private Date createdTime;
 
-	@JsonIgnore
 	@JoinColumn(name="userId")
 	@ManyToOne
 	private User user;
 
-	@JsonIgnore
 	@JoinColumn(name="articleId")
 	@ManyToOne
 	private Article article;
